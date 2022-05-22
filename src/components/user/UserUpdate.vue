@@ -14,11 +14,11 @@
               <v-col>
                 <v-row class="ma-3">
                   <v-text-field
-                    v-model="userInfo.userId"
+                    v-model="userInfo.userid"
                     label="ID"
                     required
-                    id="userId"
-                    name="userId"
+                    id="userid"
+                    name="userid"
                     @keyup="idcheck"
                   ></v-text-field>
                 </v-row>
@@ -27,13 +27,13 @@
                 <v-row class="ma-3">
                   <v-text-field
                     :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                    v-model="userInfo.userPwd"
+                    v-model="userInfo.userpwd"
                     label="PASSWORD"
                     :type="show1 ? 'text' : 'password'"
                     @click:append="show1 = !show1"
                     required
-                    id="userPwd"
-                    name="userPwd"
+                    id="userpwd"
+                    name="userpwd"
                   ></v-text-field>
                 </v-row>
 
@@ -54,7 +54,7 @@
                 <!-- https://yado.tistory.com/31 한글..?? -->
                 <v-row class="ma-3">
                   <v-text-field
-                    v-model="userInfo.userName"
+                    v-model="userInfo.username"
                     label="NAME"
                     type="String"
                     required
@@ -107,10 +107,10 @@ export default {
     return {
       show1: false,
       show2: false,
-      userName: "",
-      userId: "",
+      username: "",
+      userid: "",
       email: "",
-      userPwd: "",
+      userpwd: "",
       pwdcheck: "",
       isId: false,
       isPwd: false,
@@ -147,14 +147,14 @@ export default {
       this.$router.push({ name: "mypage" });
     },
     updateUserInfo() {
-      if (!this.userInfo.userPwd) {
+      if (!this.userInfo.userpwd) {
         alert("수정할 비밀번호를 입력하세요");
       } else {
         http
           .put(`/user/`, {
-            userId: this.userInfo.userId,
-            userPwd: this.userInfo.userPwd,
-            userName: this.userInfo.userName,
+            userid: this.userInfo.userid,
+            userpwd: this.userInfo.userpwd,
+            username: this.userInfo.username,
             email: this.userInfo.email,
           })
           .then(({ data }) => {

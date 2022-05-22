@@ -28,6 +28,7 @@ const userStore = {
   },
   actions: {
     async userConfirm({ commit }, user) {
+      console.log(user);
       await login(
         user,
         (response) => {

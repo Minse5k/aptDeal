@@ -27,13 +27,13 @@
                 <v-row class="ma-3">
                   <v-text-field
                     :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                    v-model="userPwd"
+                    v-model="userpwd"
                     label="PASSWORD"
                     :type="show1 ? 'text' : 'password'"
                     @click:append="show1 = !show1"
                     required
-                    id="userPwd"
-                    name="userPwd"
+                    id="userpwd"
+                    name="userpwd"
                   ></v-text-field>
                 </v-row>
 
@@ -54,7 +54,7 @@
                 <!-- https://yado.tistory.com/31 한글..?? -->
                 <v-row class="ma-3">
                   <v-text-field
-                    v-model="userName"
+                    v-model="username"
                     label="NAME"
                     type="String"
                     required
@@ -104,13 +104,13 @@ export default {
     return {
       show1: false,
       show2: false,
-      userName: "",
-      userId: "",
+      username: "",
+      usdrid: "",
       email: "",
-      userPwd: "",
+      userpwd: "",
       pwdcheck: "",
-      isId: false,
-      isPwd: false,
+      userid: false,
+      ispwd: false,
       idresult: "",
     };
   },
@@ -132,7 +132,7 @@ export default {
       let err = true;
       let msg = "";
       err &&
-        this.userPwd != this.pwdcheck &&
+        this.userpwd != this.pwdcheck &&
         ((msg = "입력하신 비밀번호가 다릅니다."), (err = false));
       if (!err) alert(msg);
       else this.registUser();
@@ -140,9 +140,9 @@ export default {
     registUser() {
       http
         .post("/user/", {
-          userId: this.userId,
-          userPwd: this.userPwd,
-          userName: this.userName,
+          userid: this.userid,
+          userpwd: this.userpwd,
+          username: this.username,
           email: this.email,
         })
         .then(({ data }) => {
