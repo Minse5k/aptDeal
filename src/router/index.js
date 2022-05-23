@@ -65,6 +65,19 @@ export default new Router({
       path: "/apart",
       name: "apart",
       component: () => import("@/views/Apart.vue"),
+      redirect: "/apart/list",
+      children: [
+        {
+          path: "list",
+          name: "houselist",
+          component: () => import("../components/apart/ApartList.vue"),
+        },
+        {
+          path: "detail",
+          name: "housedetail",
+          component: () => import("../components/apart/ApartDetail.vue"),
+        },
+      ],
     },
     {
       path: "/board",

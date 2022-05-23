@@ -24,10 +24,10 @@
           APART
         </router-link>
         <router-link :to="{ name: 'News' }" class="link ml-4" id="category">
-          NEWS
+          ??
         </router-link>
         <router-link :to="{ name: 'Notice' }" class="link ml-4" id="category">
-          NOTICE
+          금주의 네고
         </router-link>
         <router-link :to="{ name: 'board' }" class="link ml-4" id="category">
           Q&A
@@ -121,7 +121,7 @@ export default {
 
 <style scoped>
 #appbar {
-  background: #0e3047;
+  background: #b6bec4;
 }
 #category {
   font-size: 18px;
