@@ -6,18 +6,14 @@
         <apart-search-bar></apart-search-bar>
       </v-col>
     </v-row>
-    <v-row rows="24">
-      <v-col cols="12" align="center">
-        <!--apart-map class="map"></!--apart-map-->
-        <apart-map></apart-map>
+    <v-row rows="100">
+      <v-col cols="6" align="center">
+        <apart-map class="map"></apart-map>
       </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="3" align="left">
-        <apart-list />
-      </v-col>
-      <v-col cols="3">
+      <v-col cols="6" align="left">
         <apart-detail />
+        <apart-detail2 />
+        <apart-list />
       </v-col>
     </v-row>
   </b-container>
@@ -27,6 +23,7 @@
 import ApartSearchBar from "@/components/apart/ApartSearchBar.vue";
 import ApartList from "@/components/apart/ApartList.vue";
 import ApartDetail from "@/components/apart/ApartDetail.vue";
+import ApartDetail2 from "@/components/apart/ApartDetail2.vue";
 import ApartMap from "@/components/apart/ApartMap.vue";
 export default {
   name: "ApartView",
@@ -34,51 +31,52 @@ export default {
     ApartSearchBar,
     ApartList,
     ApartDetail,
+    ApartDetail2,
     ApartMap,
   },
+  data() {
+    return {
+      map: null,
+    };
+  },
+  mounted() {
+    // if (!window.kakao || !window.kakao.maps) {
+    //   const script = document.createElement("script");
+    //   script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${process.env.VUE_APP_KAKAOMAP_KEY}`;
+    //   script.addEventListener("load", () => {
+    //     console.log("loaded", window.kakao);
+    //     kakao.maps.load(this.initMap);
+    //   });
+    //   document.head.appendChild(script);
+    // } else {
+    //   console.log("이미 로딩 완료: ", window.kakao);
+    //   this.initMap();
+    // }
+  },
+  methods: {
+    // initMap() {
+    //   const container = document.getElementById("map");
+    //   console.log(container);
+    //   const options = {
+    //     center: new kakao.maps.LatLng(37.5666, 126.9774),
+    //     level: 3
+    //   };
+    //   this.map = new kakao.maps.Map(container, options);
+    // }
+  },
 };
-//   data() {
-//     return {
-//       map: null,
-//     };
-//   },
-//   mounted() {
-//     if (!window.kakao || !window.kakao.maps) {
-//       const script = document.createElement("script");
-//       script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${process.env.VUE_APP_KAKAOMAP_KEY}&libraries=services`;
-//       script.addEventListener("load", () => {
-//         console.log("loaded", window.kakao);
-//         kakao.maps.load(this.initMap);
-//       });
-//       document.head.appendChild(script);
-//     } else {
-//       console.log("이미 로딩 완료: ", window.kakao);
-//       this.initMap();
-//     }
-//   },
-//   methods: {
-//     initMap() {
-//       const container = document.getElementById("map");
-//       console.log(container);
-//       const options = {
-//         center: new kakao.maps.LatLng(37.5666, 126.9774),
-//         level: 3,
-//       };
-//       this.map = new kakao.maps.Map(container, options);
-//     },
-//   },
-// };
-//
 </script>
-
 <style scoped>
-/* // .underline-hotpink {
-//   display: inline-block;
-//   background: linear-gradient(
-//     180deg,
-//     rgba(255, 255, 255, 0) 70%,
-//     rgba(231, 27, 139, 0.3) 30%
-//   );
-// }
-// */
+#map {
+  width: 100%;
+  height: 100%;
+}
+.underline-hotpink {
+  display: inline-block;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 70%,
+    rgba(231, 27, 139, 0.3) 30%
+  );
+}
 </style>

@@ -1,7 +1,7 @@
 <template>
-  <b-container id="map" class="bv-example-row mt-3 text-center">
-    <b-container>
-      <ul id="category" style="padding-left: 0px">
+  <b-container class="bv-example-row mt-3 text-center">
+    <b-container id="map">
+      <ul id="category2" style="padding-left: 0px">
         <li id="BK9" data-order="0">
           <span class="category_bg bank"></span>
           은행
@@ -28,10 +28,6 @@
         </li>
       </ul>
     </b-container>
-    <b-container class="button-group">
-      <v-btn @click="changeSize(0)">Hide</v-btn>
-      <v-btn @click="changeSize(1000)">show</v-btn>
-    </b-container>
   </b-container>
 </template>
 
@@ -39,7 +35,6 @@
 import { mapActions, mapState } from "vuex";
 import axios from "axios";
 const apartStore = "apartStore";
-
 export default {
   name: "KakaoMap",
   data() {
@@ -62,16 +57,16 @@ export default {
     };
   },
   created() {
-    if (window.kakao && window.kakao.maps) {
-      this.initMap();
-    } else {
-      const script = document.createElement("script");
-      /* global kakao */
-      script.onload = () => kakao.maps.load(this.initMap);
-      script.src =
-        "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=42e048e8ec29da9ca8929be862cf0d24&libraries=services";
-      document.head.appendChild(script);
-    }
+    // if (window.kakao && window.kakao.maps) {
+    //   this.initMap();
+    // } else {
+    const script = document.createElement("script");
+    /* global kakao */
+    script.onload = () => kakao.maps.load(this.initMap);
+    script.src =
+      "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=42e048e8ec29da9ca8929be862cf0d24&libraries=services,clusterer,drawing";
+    document.head.appendChild(script);
+    // }
   },
   watch: {
     aparts: function (object, old) {
@@ -82,15 +77,24 @@ export default {
         console.log(old);
       }
     },
+    nameApts: function (object, old) {
+      if (object != null) {
+        this.index = object.length;
+        this.getAPTNameData();
+      } else {
+        console.log(old);
+      }
+    },
   },
   computed: {
-    ...mapState(apartStore, ["aparts"]),
+    ...mapState(apartStore, ["aparts", "nameApts"]),
   },
   methods: {
-    ...mapActions(apartStore, ["getApartList"]),
+    ...mapActions(apartStore, ["getApartList", "getApartListByName"]),
     initMap() {
+      // console.log("init에서 지도새로뜸!");
       this.placeOverlay = new kakao.maps.CustomOverlay({ zIndex: 1 });
-      this.contentNode = document.createElement("v-container");
+      this.contentNode = document.createElement("b-container"); // 커스텀 오버레이의 컨텐츠 엘리먼트 입니다
       const container = document.getElementById("map");
       const options = {
         center: new kakao.maps.LatLng(33.450701, 126.570667),
@@ -200,7 +204,6 @@ export default {
       this.markersCategory.push(this.markerCategory);
       return this.markerCategory;
     },
-
     removeMarker() {
       console.log(this.markers);
       for (var i = 0; i < this.markers.length; i++) {
@@ -209,7 +212,6 @@ export default {
       this.markers = [];
       console.log("removeMarker");
     },
-
     removeCategoryMarker() {
       for (var i = 0; i < this.markersCategory.length; i++) {
         this.markersCategory[i].setMap(null);
@@ -217,7 +219,6 @@ export default {
       this.markersCategory = [];
       console.log("removeCategoryMarker");
     },
-
     displayPlaceInfo(place) {
       var content =
         '<div class="placeinfo">' +
@@ -259,8 +260,10 @@ export default {
       this.placeOverlay.setMap(this.map);
     },
     addCategoryClickEvent() {
-      var category = document.getElementById("category"),
-        children = category.children;
+      var category = document.getElementById("category2");
+      let children = category.children;
+      console.log("dsdssd");
+      console.log(children);
       for (var i = 0; i < children.length; i++) {
         children[i].onclick = this.onClickCategory;
       }
@@ -283,7 +286,7 @@ export default {
       console.log("onClickCategory");
     },
     changeCategoryClass(el) {
-      var category = document.getElementById("category"),
+      var category = document.getElementById("category2"),
         children = category.children,
         i;
       for (i = 0; i < children.length; i++) {
@@ -315,8 +318,45 @@ export default {
     changeSize(size) {
       const container = document.getElementById("map");
       container.style.width = `${size}px`;
-      container.style.height = `${size / 2}px`;
+      container.style.height = `${size / 3}px`;
       this.map.relayout();
+    },
+    getAPTNameData() {
+      this.removeMarker();
+      console.log("full_address");
+      console.warn(full_address);
+      let building_code = 0;
+      let building_sub_code = 0;
+      let full_address = [];
+      for (var i = 0; i < this.nameApts.length; i++) {
+        building_code = Number.parseInt(this.nameApts[i]["roadNameBonbun"]);
+        building_sub_code =
+          Number.parseInt(this.nameApts[i]["roadNameBubun"]) + "";
+        console.log(building_code);
+        if (building_sub_code != 0) {
+          building_code += "-" + building_sub_code;
+        }
+        full_address.push(
+          this.nameApts[i]["dong"] +
+            " " +
+            this.nameApts[i]["roadName"] +
+            " " +
+            building_code
+        );
+        this.Addr.push(
+          this.nameApts[i]["dong"] +
+            " " +
+            this.nameApts[i]["roadName"] +
+            " " +
+            building_code
+        );
+        this.Dong.push(this.nameApts[i]["dong"]);
+        console.log(building_code);
+      }
+      this.movePosition(full_address[0]);
+      for (let i = 0; i < full_address.length; i++) {
+        this.setMark(full_address[i]);
+      }
     },
     // 아파트 데이터 가져오기
     getAPTData() {
@@ -363,7 +403,6 @@ export default {
       geocoder.addressSearch(address, (result, status) => {
         if (status === kakao.maps.services.Status.OK) {
           var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
           var marker = new kakao.maps.Marker({
             map: this.map, // 마커를 표시할 지도
             position: coords, // 마커를 표시할 위치
@@ -460,42 +499,27 @@ export default {
       });
     },
     closeOverlay() {
-      this.infowindow.setMap(null);
-      console.log("close");
+      if (this.infowindow != null) this.infowindow.setMap(null);
     },
   },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
 #map {
-  width: 1000px;
-  height: 500px;
+  width: 100%;
+  height: 700px;
   position: relative;
   overflow: hidden;
 }
-
 .button-group {
   margin: 10px 0px;
 }
-
 button {
   margin: 0 3px;
 }
-
-#category {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  border-radius: 5px;
-  border: 1px solid #909090;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
-  background: #fff;
-  overflow: hidden;
-  z-index: 2;
-}
-#category li {
+#category2 li {
   float: left;
   list-style: none;
   width: 50px;
@@ -503,48 +527,51 @@ button {
   padding: 6px 0;
   text-align: center;
   cursor: pointer;
+  position: relative;
+  z-index: 2;
+  background-color: white;
 }
-#category li.on {
+#category2 li.on {
   background: #eee;
 }
-#category li:hover {
+#category2 li:hover {
   background: #ffe6e6;
   border-left: 1px solid #acacac;
   margin-left: -1px;
 }
-#category li:last-child {
+#category2 li:last-child {
   margin-right: 0;
   border-right: 0;
 }
-#category li span {
+#category2 li span {
   display: block;
   margin: 0 auto 3px;
   width: 27px;
   height: 28px;
 }
-#category li .category_bg {
+#category2 li .category_bg {
   background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_category.png)
     no-repeat;
 }
-#category li .bank {
+#category2 li .bank {
   background-position: -10px 0;
 }
-#category li .mart {
+#category2 li .mart {
   background-position: -10px -36px;
 }
-#category li .pharmacy {
+#category2 li .pharmacy {
   background-position: -10px -72px;
 }
-#category li .oil {
+#category2 li .oil {
   background-position: -10px -108px;
 }
-#category li .cafe {
+#category2 li .cafe {
   background-position: -10px -144px;
 }
-#category li .store {
+#category2 li .store {
   background-position: -10px -180px;
 }
-#category li.on .category_bg {
+#category2 li.on .category_bg {
   background-position-x: -46px;
 }
 .placeinfo_wrap {
@@ -613,7 +640,6 @@ button {
   font-size: 11px;
   margin-top: 0;
 }
-
 .info-title {
   display: block;
   background: #50627f;
@@ -624,7 +650,6 @@ button {
   border-radius: 4px;
   padding: 0px 10px;
 }
-
 .wrap {
   position: absolute;
   left: 0;

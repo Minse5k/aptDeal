@@ -1,12 +1,20 @@
-import { sidoList, gugunList, apartList } from "@/api/apart.js";
+import {
+  sidoList,
+  gugunList,
+  apartList,
+  apartListByName,
+} from "@/api/apart.js";
 
 const apartStore = {
   namespaced: true,
   state: {
     sidos: [{ value: null, text: "시.도" }],
+    sidosName: [{ value: null, text: "시.도" }],
     guguns: [{ value: null, text: "구.군" }],
     // date: [{ value: null, text: "거래일시" }],
     aparts: [],
+    nameApts: [],
+    nameApt: null,
     apart: null,
     pagination: {
       date: null,
@@ -25,20 +33,32 @@ const apartStore = {
         state.sidos.push({ value: sido.sidoCode, text: sido.sidoName });
       });
     },
+    SET_SIDO_NAME_LIST: (state, sidosName) => {
+      sidosName.forEach((sido) => {
+        state.sidosName.push({ value: sido.sidoName, text: sido.sidoName });
+      });
+    },
     SET_SIDO(state, payload) {
       state.sido = { code: payload[1], name: payload[0] };
       0;
     },
+
     SET_GUGUN_LIST: (state, guguns) => {
       guguns.forEach((gugun) => {
         state.guguns.push({ value: gugun.gugunCode, text: gugun.gugunName });
       });
     },
-    SET_GUGUN(state, payload) {
-      state.gugun = { code: payload[1], name: payload[0] };
-    },
     CLEAR_SIDO_LIST: (state) => {
       state.sidos = [{ value: null, text: "선택하세요" }];
+    },
+    CLEAR_SIDO_NAME_LIST: (state) => {
+      state.sidosName = [{ value: null, text: "선택하세요" }];
+    },
+    CLEAR_APART_LIST: (state) => {
+      state.aparts = [];
+      state.nameApts = [];
+      state.apart = null;
+      state.nameApt = null;
     },
     CLEAR_GUGUN_LIST: (state) => {
       state.guguns = [{ value: null, text: "선택하세요" }];
@@ -47,8 +67,15 @@ const apartStore = {
       //   console.log(houses);
       state.aparts = aparts;
     },
+    SET_APART_NAME_LIST: (state, nameApts) => {
+      //   console.log(houses);
+      state.nameApts = nameApts;
+    },
     SET_DETAIL_APART: (state, apart) => {
       state.apart = apart;
+    },
+    SET_DETAIL_NAME_APART: (state, nameApt) => {
+      state.nameApt = nameApt;
     },
     SET_PAGINATION: (state, pagination) => {
       state.pagination = pagination;
@@ -62,6 +89,17 @@ const apartStore = {
         ({ data }) => {
           console.log(data);
           commit("SET_SIDO_LIST", data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+    getSidoName: ({ commit }) => {
+      sidoList(
+        ({ data }) => {
+          console.log(data);
+          commit("SET_SIDO_NAME_LIST", data);
         },
         (error) => {
           console.log(error);
@@ -87,9 +125,7 @@ const apartStore = {
       // vue cli enviroment variables 검색
       //.env.local file 생성.
       // 반드시 VUE_APP으로 시작해야 한다.
-      const SERVICE_KEY =
-        "gLUki0nkksO%2Frmi1YcLeAV%2FyFZNfniI6aCjr4m8myNf1Hvj8huuftj0BYURmACeyiM9zfCBh1HHCtsDX4XnIhg%3D%3D";
-
+      const SERVICE_KEY = process.env.VUE_APP_APT_DEAL_API_KEY;
       //   const SERVICE_KEY =
       //     "9Xo0vlglWcOBGUDxH8PPbuKnlBwbWU6aO7%2Bk3FV4baF9GXok1yxIEF%2BIwr2%2B%2F%2F4oVLT8bekKU%2Bk9ztkJO0wsBw%3D%3D";
       let DEAL_YMD = "202110";
@@ -108,14 +144,11 @@ const apartStore = {
       apartList(
         params,
         (response) => {
+          console.log(response);
           const body = response.data.response.body;
           let data;
           let pagination;
-          console.log("바디");
-          console.log(response);
-          console.log(body);
           if (!Array.isArray(body.items.item)) {
-            console.log("한개만 나오라이마리야");
             data = [];
             data.push(body.items.item);
           } else data = body.items.item;
@@ -135,9 +168,25 @@ const apartStore = {
         }
       );
     },
+    getApartListByName: ({ commit }, params) => {
+      apartListByName(
+        params,
+        ({ data }) => {
+          console.log(data);
+          commit("SET_APART_NAME_LIST", data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
     detailApart: ({ commit }, apart) => {
       // 나중에 house.일련번호를 이용하여 API 호출
       commit("SET_DETAIL_APART", apart);
+    },
+    detailApart2: ({ commit }, nameApt) => {
+      // 나중에 house.일련번호를 이용하여 API 호출
+      commit("SET_DETAIL_NAME_APART", nameApt);
     },
   },
 };
