@@ -1,7 +1,7 @@
 <template>
   <v-btn
     :style="styles"
-    color="primary"
+    color="secondary"
     fab
     small
     v-bind="$attrs"
@@ -12,19 +12,19 @@
 </template>
 
 <script>
-  export default {
-    name: 'BaseBtn',
+export default {
+  name: "BaseBtn",
 
-    props: {
-      square: Boolean,
-    },
+  props: {
+    square: Boolean,
+  },
 
-    computed: {
-      styles () {
-        return {
-          borderRadius: this.square ? '2px' : undefined,
-        }
-      },
+  computed: {
+    styles() {
+      return {
+        borderRadius: this.square ? "2px" : undefined,
+      };
     },
-  }
+  },
+};
 </script>

@@ -15,16 +15,11 @@
           />
         </router-link>
 
-        <!-- <b-navbar-toggle target="nav-collapse"></b-navbar-toggle> -->
-
         <router-link :to="{ name: 'home' }" class="link" id="category">
           HOME
         </router-link>
         <router-link :to="{ name: 'apart' }" class="link ml-4" id="category">
           APART
-        </router-link>
-        <router-link :to="{ name: 'News' }" class="link ml-4" id="category">
-          ??
         </router-link>
         <router-link :to="{ name: 'Notice' }" class="link ml-4" id="category">
           금주의 네고
@@ -32,18 +27,6 @@
         <router-link :to="{ name: 'board' }" class="link ml-4" id="category">
           Q&A
         </router-link>
-
-        <!-- <v-btn
-          v-for="(link, i) in links"
-          :key="i"
-          v-bind="link"
-          class="hidden-sm-and-down"
-          text
-          @click="onClick($event, link)"
-          color="white"
-        >
-          {{ link.text }}
-        </v-btn> -->
 
         <v-spacer />
 
@@ -78,13 +61,6 @@
             >
           </div>
         </div>
-        <!-- <v-text-field
-          append-icon="mdi-magnify"
-          flat
-          hide-details
-          solo-inverted
-          style="max-width: 300px;"
-        /> -->
       </v-row>
     </v-container>
   </v-app-bar>
@@ -121,7 +97,7 @@ export default {
 
 <style scoped>
 #appbar {
-  background: #b6bec4;
+  background: #1d71b1;
 }
 #category {
   font-size: 18px;

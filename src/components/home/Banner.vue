@@ -1,18 +1,17 @@
 <template>
   <base-card dark>
     <v-img
-      :src="require('@/assets/img/banner_city.png')"
+      :src="require('@/assets/img/banner.jpg')"
       class="grey lighten-2"
-      height="400"
+      height="600"
       width="100%"
     >
       <v-row class="fill-height pa-3" align="center">
         <v-col cols="12" md="7" offset-md="5">
-          <h1 class="display-3 font-weight-bold">Aptmoa</h1>
+          <h1 class="display-3 font-weight-bold">AptDeal</h1>
 
-          <div class="subheading pl-2 pt-5">
-            나에게 맞는 아파트를 찾아보세요. <br />
-            찾는 아파트의 주변 인프라, CCTV 정보도 확인해보세요.
+          <div class="subheading pl-2 pt-5 display-1">
+            Apart 시세 및 주변 편의시설까지 한 눈에 확인하세요! <br />
           </div>
         </v-col>
       </v-row>

@@ -1,6 +1,6 @@
 <template>
   <b-container class="bv-example-row mt-3 text-center">
-    <h1 class="underline-hotpink">Apart Service</h1>
+    <h1 class="underline-hotpink">Apart</h1>
     <v-row>
       <v-col cols="12">
         <apart-search-bar></apart-search-bar>
@@ -11,9 +11,9 @@
         <apart-map class="map"></apart-map>
       </v-col>
       <v-col cols="6" align="left">
+        <apart-list />
         <apart-detail />
         <apart-detail2 />
-        <apart-list />
       </v-col>
     </v-row>
   </b-container>
@@ -39,31 +39,6 @@ export default {
       map: null,
     };
   },
-  mounted() {
-    // if (!window.kakao || !window.kakao.maps) {
-    //   const script = document.createElement("script");
-    //   script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${process.env.VUE_APP_KAKAOMAP_KEY}`;
-    //   script.addEventListener("load", () => {
-    //     console.log("loaded", window.kakao);
-    //     kakao.maps.load(this.initMap);
-    //   });
-    //   document.head.appendChild(script);
-    // } else {
-    //   console.log("이미 로딩 완료: ", window.kakao);
-    //   this.initMap();
-    // }
-  },
-  methods: {
-    // initMap() {
-    //   const container = document.getElementById("map");
-    //   console.log(container);
-    //   const options = {
-    //     center: new kakao.maps.LatLng(37.5666, 126.9774),
-    //     level: 3
-    //   };
-    //   this.map = new kakao.maps.Map(container, options);
-    // }
-  },
 };
 </script>
 <style scoped>
@@ -71,12 +46,12 @@ export default {
   width: 100%;
   height: 100%;
 }
-.underline-hotpink {
+/* .underline-hotpink {
   display: inline-block;
   background: linear-gradient(
     180deg,
     rgba(255, 255, 255, 0) 70%,
     rgba(231, 27, 139, 0.3) 30%
   );
-}
+} */
 </style>

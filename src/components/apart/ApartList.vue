@@ -3,7 +3,7 @@
     <v-data-table
       :headers="headers"
       :items="aparts"
-      :items-per-page="15"
+      :items-per-page="7"
       class="elevation-1"
       @click:row="selectApart"
     ></v-data-table>

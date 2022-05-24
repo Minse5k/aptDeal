@@ -1,50 +1,38 @@
 <template>
-  <b-container v-if="apart" class="bv-example-row">
-    <b-row>
-      <b-col
-        ><h3>{{ apart.아파트 }}</h3></b-col
-      >
-    </b-row>
-    <b-row class="mb-2 mt-1">
-      <b-col
-        ><b-img :src="require('@/assets/apt.jpg')" fluid-grow></b-img
-      ></b-col>
-    </b-row>
-    <b-row>
-      <b-col>
-        <b-alert show variant="secondary"
-          >일련번호 : {{ apart.일련번호 }}</b-alert
-        >
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col>
-        <b-alert show variant="primary"
-          >아파트 이름 : {{ apart.아파트 }}
-        </b-alert>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col>
-        <b-alert show variant="info">법정동 : {{ apart.법정동 }} </b-alert>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col>
-        <b-alert show variant="warning">층수 : {{ apart.층 }}층</b-alert>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col>
-        <b-alert show variant="danger"
-          >거래금액 :
-          {{
-            (parseInt(apart.거래금액.replace(",", "")) * 10000) | price
-          }}원</b-alert
-        >
-      </b-col>
-    </b-row>
-  </b-container>
+  <v-card v-if="apart">
+    <v-card-title class="subheading font-weight-bold">
+      {{ apart.아파트 }}아파트
+    </v-card-title>
+    <v-list dense>
+      <v-list-item>
+        <v-list-item-content>일련번호:</v-list-item-content>
+        <v-list-item-content class="align-end">
+          {{ apart.일련번호 }}
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-list-item>
+        <v-list-item-content>법정동:</v-list-item-content>
+        <v-list-item-content class="align-end">
+          {{ apart.법정동 }}
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-list-item>
+        <v-list-item-content>층 수:</v-list-item-content>
+        <v-list-item-content class="align-end">
+          {{ apart.층 }}층
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-list-item>
+        <v-list-item-content>거래금액:</v-list-item-content>
+        <v-list-item-content class="align-end">
+          {{ apart.거래금액 }}원
+        </v-list-item-content>
+      </v-list-item>
+    </v-list>
+  </v-card>
 </template>
 
 <script>

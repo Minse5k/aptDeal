@@ -1,42 +1,57 @@
-<template>
-  <v-row class="mt-4 mb-4 text-center">
-    <v-container fluid>
-      <v-radio-group v-model="row" row>
-        <v-radio label="지역기반으로 검색" value="locations"></v-radio>
-        <v-radio label="아파트명으로 검색" value="apartName"></v-radio>
-      </v-radio-group>
-    </v-container>
-    <v-col class="sm-3" v-if="row === 'locations'">
-      <v-select
-        v-model="sidoCode"
-        :items="sidos"
-        @change="gugunList"
-      ></v-select>
-    </v-col>
-    <v-col class="sm-3" v-if="row === 'locations'">
-      <v-select v-model="gugunCode" :items="guguns" label="지역"></v-select>
-    </v-col>
-    <v-col class="sm-3" v-if="row === 'locations'">
-      <v-select v-model="year" :items="years" label="Year"></v-select>
-    </v-col>
-    <v-col class="sm-3" v-if="row === 'locations'">
-      <v-select v-model="month" :items="months" label="Month"></v-select>
-    </v-col>
-
-    <v-col class="sm-3" v-if="row === 'apartName'">
-      <v-select v-model="sidoName" :items="sidosName"></v-select>
-    </v-col>
-    <v-col class="sm-3" v-if="row === 'apartName'">
-      <v-text-field
-        label="아파트 명을 입력하세요."
-        v-model="aptName"
-      ></v-text-field>
-    </v-col>
-
-    <v-col class="text-right">
-      <v-btn variant="outline-primary" @click="searchApt">조회</v-btn>
-    </v-col>
-  </v-row>
+<template v-slot:extention>
+  <v-tabs v-model="tab" background-color="transparent" color="secondary" grow>
+    <v-tab v-for="item in items" :key="item">
+      {{ item }}
+    </v-tab>
+    <v-tabs-items v-model="tab">
+      <v-tab-item>
+        <br />
+        <v-row>
+          <v-col class="sm-3">
+            <v-select
+              v-model="sidoCode"
+              :items="sidos"
+              @change="gugunList"
+              label="시/도"
+            ></v-select>
+          </v-col>
+          <v-col class="sm-3">
+            <v-select
+              v-model="gugunCode"
+              :items="guguns"
+              label="지역"
+            ></v-select>
+          </v-col>
+          <v-col class="sm-3">
+            <v-select v-model="year" :items="years" label="Year"></v-select>
+          </v-col>
+          <v-col class="sm-3">
+            <v-select v-model="month" :items="months" label="Month"></v-select>
+          </v-col>
+          <v-col class="text-right">
+            <v-btn @click="searchApt" color="primary">조회</v-btn>
+          </v-col>
+        </v-row>
+      </v-tab-item>
+      <v-tab-item>
+        <br />
+        <v-row>
+          <v-col class="sm-3">
+            <v-select v-model="sidoName" :items="sidosName"></v-select>
+          </v-col>
+          <v-col class="sm-3">
+            <v-text-field
+              label="아파트 명을 입력하세요."
+              v-model="aptName"
+            ></v-text-field>
+          </v-col>
+          <v-col class="text-right">
+            <v-btn @click="searchApt" color="primary">조회</v-btn>
+          </v-col>
+        </v-row>
+      </v-tab-item>
+    </v-tabs-items>
+  </v-tabs>
 </template>
 
 <script>
@@ -89,6 +104,8 @@ export default {
         { value: "11", text: "11월" },
         { value: "12", text: "12월" },
       ],
+      items: ["지역으로 검색", "아파트 이름으로 검색"],
+      tab: null,
     };
   },
   computed: {
