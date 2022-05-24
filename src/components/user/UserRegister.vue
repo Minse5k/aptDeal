@@ -14,11 +14,11 @@
               <v-col>
                 <v-row class="ma-3">
                   <v-text-field
-                    v-model="userId"
+                    v-model="userid"
                     label="ID"
                     required
-                    id="userId"
-                    name="userId"
+                    id="userid"
+                    name="userid"
                     @keyup="idcheck"
                   ></v-text-field>
                 </v-row>
@@ -118,7 +118,7 @@ export default {
   methods: {
     idcheck() {
       //id체크하는 api 필요
-      http.get(`/user/idcheck/${this.userId}`).then(({ data }) => {
+      http.get(`/user/idcheck/${this.userid}`).then(({ data }) => {
         if (data === "success") {
           this.idresult = "사용가능한 아이디입니다.";
           this.isId = true;
@@ -139,7 +139,7 @@ export default {
     },
     registUser() {
       http
-        .post("/user/", {
+        .put("/user/regist", {
           userid: this.userid,
           userpwd: this.userpwd,
           username: this.username,

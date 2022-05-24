@@ -1,5 +1,5 @@
 <template>
-  <b-container class="mt-4" v-if="userInfo">
+  <v-card>
     <b-row>
       <b-col>
         <b-alert variant="secondary" show><h3>내정보</h3></b-alert>
@@ -45,21 +45,21 @@
           </b-container>
           <hr class="my-4" />
 
-          <b-button
-            variant="primary"
+          <v-btn
+            color="primary"
             href="#"
             class="mr-1"
             @click="moveModifyUserInfo"
-            >정보수정</b-button
+            >정보수정</v-btn
           >
-          <b-button variant="danger" href="#" @click="removeUserInfo"
-            >회원탈퇴</b-button
+          <v-btn color="danger" href="#" @click="removeUserInfo"
+            >회원탈퇴</v-btn
           >
         </b-jumbotron>
       </b-col>
       <b-col></b-col>
     </b-row>
-  </b-container>
+  </v-card>
 </template>
 
 <script>
@@ -80,12 +80,12 @@ export default {
     moveModifyUserInfo() {
       this.$router.replace({
         name: "userupdate",
-        params: { userId: this.userInfo.userId },
+        params: { userid: this.userInfo.userid },
       });
     },
     removeUserInfo() {
       if (confirm("정말로 탈퇴하시겠습니까?")) {
-        httpCommon.delete(`/user/${this.userInfo.userId}`).then(({ data }) => {
+        httpCommon.delete(`/user/${this.userInfo.userid}`).then(({ data }) => {
           let msg = "삭제 처리시 문제가 발생했습니다.";
           if (data === "success") {
             msg = "회원 탈퇴가 완료되었습니다.";

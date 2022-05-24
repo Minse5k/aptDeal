@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "Qna",
+  name: "네고 게시판",
   data() {
     return {};
   },

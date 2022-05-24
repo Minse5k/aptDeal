@@ -25,13 +25,13 @@
 </template>
 
 <script>
-import { listArticle } from "@/api/qna.js";
-import BoardListItem from "@/components/board/item/BoardListItem";
+import { listArticle } from "@/api/board.js";
+import negoListItem from "@/components/nego/item/NegoListItem";
 
 export default {
-  name: "BoardList",
+  name: "negoList",
   components: {
-    BoardListItem,
+    negoListItem,
   },
   data() {
     return {
@@ -70,11 +70,11 @@ export default {
   },
   methods: {
     moveWrite() {
-      this.$router.push({ name: "boardRegister" });
+      this.$router.push({ name: "negoRegister" });
     },
     moveDetail(row) {
       this.$router.push({
-        name: "boardDetail",
+        name: "negoDetail",
         params: { articleno: row.articleno },
       });
     },

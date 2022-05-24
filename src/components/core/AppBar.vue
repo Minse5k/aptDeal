@@ -21,7 +21,7 @@
         <router-link :to="{ name: 'apart' }" class="link ml-4" id="category">
           APART
         </router-link>
-        <router-link :to="{ name: 'Notice' }" class="link ml-4" id="category">
+        <router-link :to="{ name: 'nego' }" class="link ml-4" id="category">
           금주의 네고
         </router-link>
         <router-link :to="{ name: 'board' }" class="link ml-4" id="category">

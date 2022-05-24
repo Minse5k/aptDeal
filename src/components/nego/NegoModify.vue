@@ -18,12 +18,12 @@
 </template>
 
 <script>
-import BoardInputItem from "@/components/board/item/BoardInputItem.vue";
+import negoInputItem from "@/components/nego/item/NegoInputItem.vue";
 
 export default {
-  name: "BoardModify",
+  name: "negoModify",
   components: {
-    BoardInputItem,
+    negoInputItem,
   },
 };
 </script>

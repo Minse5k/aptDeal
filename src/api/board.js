@@ -14,9 +14,13 @@ function getArticle(articleno, success, fail) {
   api.get(`/board/${articleno}`).then(success).catch(fail);
 }
 
-function modifyArticle(article, success, fail) {
+function getLike(article, success, fail) {
+  console.log(article);
   api
-    .put(`/board/${article.articleno}`, JSON.stringify(article))
+    .put(
+      `/board/${article.articleno}/${article.userid}`,
+      JSON.stringify(article)
+    )
     .then(success)
     .catch(fail);
 }
@@ -25,4 +29,4 @@ function deleteArticle(articleno, success, fail) {
   api.delete(`/board/${articleno}`).then(success).catch(fail);
 }
 
-export { listArticle, writeArticle, getArticle, modifyArticle, deleteArticle };
+export { listArticle, writeArticle, getArticle, getLike, deleteArticle };

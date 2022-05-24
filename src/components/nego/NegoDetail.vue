@@ -44,9 +44,7 @@
     <v-row>
       <v-col align-self="start">
         <v-btn color="primary" id="board-btn" @click="listArticle">목록</v-btn>
-        <v-btn color="primary" id="board-btn" @click="moveModifyArticle"
-          >수정</v-btn
-        >
+        <v-btn color="primary" id="board-btn" @click="like">추천</v-btn>
         <v-btn color="primary" id="board-btn" @click="deleteArticle"
           >삭제</v-btn
         >
@@ -57,16 +55,20 @@
 
 <script>
 // import moment from "moment";
-import { getArticle, deleteArticle } from "@/api/qna";
+import { getArticle, deleteArticle, getLike } from "@/api/board";
+import { mapState } from "vuex";
+import httpCommon from "../../util/http-common";
 
 export default {
-  name: "BoardDetail",
+  name: "negoDetail",
   data() {
     return {
       article: {},
     };
   },
   computed: {
+    ...mapState("userStore", ["userInfo"]),
+
     message() {
       if (this.article.content)
         return this.article.content.split("\n").join("<br>");
@@ -86,19 +88,34 @@ export default {
   },
   methods: {
     listArticle() {
-      this.$router.push({ name: "boardList" });
+      this.$router.push({ name: "negoList" });
     },
-    moveModifyArticle() {
-      this.$router.replace({
-        name: "boardModify",
-        params: { articleno: this.article.articleno },
-      });
+    like() {
+      getLike(
+        this.article,
+        ({ data }) => {
+          let msg = "등록 처리시 문제가 발생했습니다.";
+          if (data === "success") {
+            msg = "등록이 완료되었습니다.";
+          }
+          alert(msg);
+          this.moveList();
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+      alert("추천!!!");
+      // this.$router.replace({
+      //   name: "negoModify",
+      //   params: { articleno: this.article.articleno },
+      // });
       //   this.$router.push({ path: `/board/modify/${this.article.articleno}` });
     },
     deleteArticle() {
       if (confirm("정말로 삭제?")) {
         deleteArticle(this.article.articleno, () => {
-          this.$router.push({ name: "boardList" });
+          this.$router.push({ name: "negoList" });
         });
       }
     },

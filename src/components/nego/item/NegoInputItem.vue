@@ -39,13 +39,13 @@
 </template>
 
 <script>
-import { writeArticle, getArticle, modifyArticle } from "@/api/qna";
+import { writeArticle, getArticle, modifyArticle } from "@/api/board";
 import { mapState } from "vuex";
 
 const memberStore = "memberStore";
 
 export default {
-  name: "BoardInputItem",
+  name: "negoInputItem",
   data() {
     return {
       article: {
@@ -108,7 +108,7 @@ export default {
       this.article.articleno = 0;
       this.article.subject = "";
       this.article.content = "";
-      this.$router.push({ name: "boardList" });
+      this.$router.push({ name: "negoList" });
     },
     registArticle() {
       writeArticle(
@@ -145,7 +145,7 @@ export default {
           }
           alert(msg);
           // 현재 route를 /list로 변경.
-          this.$router.push({ name: "boardList" });
+          this.$router.push({ name: "negoList" });
         },
         (error) => {
           console.log(error);
@@ -153,7 +153,7 @@ export default {
       );
     },
     moveList() {
-      this.$router.push({ name: "boardList" });
+      this.$router.push({ name: "negoList" });
     },
   },
 };

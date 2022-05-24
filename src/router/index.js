@@ -6,15 +6,15 @@ import User from "@/views/User.vue";
 import store from "@/store/index.js";
 const onlyAuthUser = async (to, from, next) => {
   // console.log(store);
-  const checkUserInfo = store.getters["memberStore/checkUserInfo"];
-  const getUserInfo = store._actions["memberStore/getUserInfo"];
+  const checkUserInfo = store.getters["userStore/checkUserInfo"];
+  const getUserInfo = store._actions["userStore/getUserInfo"];
   let token = sessionStorage.getItem("access-token");
   if (checkUserInfo == null && token) {
     await getUserInfo(token);
   }
   if (checkUserInfo === null) {
     alert("로그인이 필요한 페이지입니다..");
-    next({ name: "signIn" });
+    next({ name: "user" });
     // router.push({ name: "signIn" });
   } else {
     // console.log("로그인 했다.");
@@ -55,7 +55,7 @@ export default new Router({
           component: () => import("@/components/user/UserMyPage.vue"),
         },
         {
-          path: "update/:userId",
+          path: "update/:userid",
           name: "userupdate",
           component: () => import("@/components/user/UserUpdate.vue"),
         },
@@ -107,6 +107,37 @@ export default new Router({
           name: "boardModify",
           beforeEnter: onlyAuthUser,
           component: () => import("@/components/board/BoardModify.vue"),
+        },
+      ],
+    },
+    {
+      path: "/nego",
+      name: "nego",
+      component: () => import("@/views/NegoView.vue"),
+      redirect: "/nego/list",
+      children: [
+        {
+          path: "list",
+          name: "negoList",
+          component: () => import("@/components/nego/NegoList.vue"),
+        },
+        {
+          path: "write",
+          name: "negoRegister",
+          beforeEnter: onlyAuthUser,
+          component: () => import("@/components/nego/NegoRegister.vue"),
+        },
+        {
+          path: "detail/:articleno",
+          name: "negoDetail",
+          beforeEnter: onlyAuthUser,
+          component: () => import("@/components/nego/NegoDetail.vue"),
+        },
+        {
+          path: "modify/:articleno",
+          name: "negoModify",
+          beforeEnter: onlyAuthUser,
+          component: () => import("@/components/nego/NegoModify.vue"),
         },
       ],
     },

@@ -124,7 +124,7 @@ export default {
   methods: {
     idcheck() {
       //id체크하는 api 필요
-      http.get(`/user/idcheck/${this.userId}`).then(({ data }) => {
+      http.get(`/user/idcheck/${this.userid}`).then(({ data }) => {
         if (data === "success") {
           this.idresult = "사용가능한 아이디입니다.";
           this.isId = true;
