@@ -53,6 +53,7 @@ export default {
         userid: "",
         subject: "",
         content: "",
+        love: 0,
       },
     };
   },
@@ -108,6 +109,7 @@ export default {
       this.article.articleno = 0;
       this.article.subject = "";
       this.article.content = "";
+      this.article.love = 0;
       this.$router.push({ name: "negoList" });
     },
     registArticle() {

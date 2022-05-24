@@ -2,7 +2,7 @@
   <div>
     <h2 class="qna"><b-icon icon="journals"></b-icon> Q&A</h2>
     <v-btn color="primary" variant="outline-primary" @click="moveWrite()"
-      >Q&A쓰기</v-btn
+      >네고글쓰기</v-btn
     >
     <v-data-table
       :headers="headers"
@@ -45,6 +45,7 @@ export default {
         },
         { text: "제목", value: "subject" },
         { text: "작성자(ID)", value: "userid" },
+        { text: "추천수", value: "love" },
         { text: "조회수", value: "hit" },
         { text: "작성일", value: "regtime" },
       ],

@@ -426,7 +426,7 @@ export default {
     },
     addMarker(marker, result) {
       console.log("addMarker");
-      kakao.maps.event.addListener(marker, "mouseover", () => {
+      kakao.maps.event.addListener(marker, "click", () => {
         this.displayInfoWindow(result, this.index - 1);
       });
       kakao.maps.event.addListener(marker, "mouseout", () => {
@@ -469,20 +469,20 @@ export default {
             //   temp
             // )}도<img src="${imgURL}" width="30" height="30"></div></div>`,
             `<div class="wrap">
-                <div class="info">
-                    <div class="title">
-                        ${this.Dong[idx]}의 날씨
-                        <div class="close" @click="closeOverlay" title="닫기"></div>
-                    </div>
+                <div class="info"> 
                     <div class="body">
+                      <div class="title" style="background: transparent; border-bottom: none">
+                          ${this.Dong[idx]} 날씨
+      
+                      </div>
+                      <div style="display: flex; align-items: center; justify-content: center;">
                         <div class="img">
-                            <img src="${imgURL}" width="73" height="70">
-                       </div>
-                        <div class="desc">
-                            <div class="ellipsis">현재온도 ${Math.ceil(
-                              temp
-                            )}도</div>
+                              <img src="${imgURL}" width="73" height="70">
                         </div>
+                          <div class="desc">
+                              <div>현재온도 ${Math.ceil(temp)}도</div>
+                          </div>
+                      </div> 
                     </div>
                 </div>
             </div>`,
@@ -674,7 +674,7 @@ button {
   border-bottom: 2px solid #ccc;
   border-right: 1px solid #ccc;
   overflow: hidden;
-  background: #fff;
+  background: #fff !important;
 }
 .wrap .info:nth-child(1) {
   border: 0;
@@ -707,8 +707,7 @@ button {
 }
 .info .desc {
   position: relative;
-  margin: 13px 0 0 90px;
-  height: 75px;
+  font-size: 20px;
 }
 .desc .ellipsis {
   margin-top: 12%;
@@ -725,12 +724,8 @@ button {
   margin-top: -2px;
 }
 .info .img {
-  position: absolute;
-  top: 6px;
-  left: 5px;
   width: 73px;
   height: 71px;
-  border: 1px solid #ddd;
   color: #888;
   overflow: hidden;
 }

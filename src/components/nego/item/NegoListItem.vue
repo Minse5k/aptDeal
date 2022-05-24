@@ -7,6 +7,7 @@
         >{{ subject }}</router-link
       >
     </b-th>
+    <b-td>{{ love }}</b-td>
     <b-td>{{ hit }}</b-td>
     <b-td>{{ userid }}</b-td>
     <b-td>{{ regtime | dateFormat }}</b-td>
@@ -23,6 +24,7 @@ export default {
     userid: String,
     subject: String,
     hit: Number,
+    love: Number,
     regtime: String,
   },
   filters: {
