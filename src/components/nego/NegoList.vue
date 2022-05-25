@@ -45,7 +45,7 @@ export default {
         },
         { text: "제목", value: "subject" },
         { text: "작성자(ID)", value: "userid" },
-        { text: "추천수", value: "love" },
+        { text: "추천수", value: "like" },
         { text: "조회수", value: "hit" },
         { text: "작성일", value: "regtime" },
       ],

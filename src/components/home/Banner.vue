@@ -7,10 +7,10 @@
       width="100%"
     >
       <v-row class="fill-height pa-3" align="center">
-        <v-col cols="12" md="7" offset-md="5">
-          <h1 class="display-3 font-weight-bold">AptDeal</h1>
+        <v-col cols="10" md="7" offset-md="1">
+          <h1 class="display-3 font-weight-bold" id="font-text">AptDeal</h1>
 
-          <div class="subheading pl-2 pt-5 display-1">
+          <div class="subheading pl-2 pt-5 display-1" id="font-text">
             Apart 시세 및 주변 편의시설까지 한 눈에 확인하세요! <br />
           </div>
         </v-col>
@@ -24,3 +24,9 @@ export default {
   name: "HomeBanner",
 };
 </script>
+
+<style scoped>
+#font-text {
+  color: #000000;
+}
+</style>

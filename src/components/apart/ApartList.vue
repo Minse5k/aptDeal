@@ -15,7 +15,7 @@
     <v-data-table
       :headers="headers2"
       :items="nameApts"
-      :items-per-page="15"
+      :items-per-page="8"
       class="elevation-1"
       @click:row="selectApart2"
     ></v-data-table>
@@ -29,6 +29,7 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
+import http from "@/util/http-common";
 const apartStore = "apartStore";
 export default {
   name: "ApartList",
@@ -44,17 +45,24 @@ export default {
         { text: "전용면적", value: "전용면적" },
       ],
       headers2: [
-        { text: "법정구", value: "gugunName" },
         { text: "법정동", value: "dong" },
-        // { text: "거래월", value: "월" },
-        { text: "이름", value: "apartmentName" },
-        { text: "거래금액", value: "recentPrice" },
-        // { text: "전용면적", value: "전용면적" }
+        { text: "이름", value: "apartmentname" },
+        { text: "거래금액", value: "dealamount" },
+        { text: "층", value: "floor" },
       ],
+      dialog: false,
+      dialog2: false,
+      apart: {},
+      apart2: {},
+      startRoute: null,
+      endRoute: null,
     };
   },
   computed: {
-    ...mapState(apartStore, ["aparts", "nameApts"]),
+    ...mapState({
+      aparts: (state) => state.apartStore.aparts,
+      nameApts: (state) => state.apartStore.nameApts,
+    }),
     methods: {
       ...mapActions(apartStore, ["getApartList", "getApartListByName"]),
     },
@@ -62,12 +70,28 @@ export default {
   methods: {
     ...mapActions(apartStore, ["detailApart", "detailApart2"]),
     selectApart(value) {
-      // console.log(value);
+      console.log(value);
+      this.apart = value;
+      this.dialog = true;
+      console.log(this.dialog);
       this.detailApart(value);
     },
     selectApart2(value) {
-      // console.log(value);
+      console.log(2);
+      console.log(value);
+      this.apart2 = value;
+      this.dialog2 = true;
+      console.log(this.dialog2);
       this.detailApart2(value);
+    },
+    findRoute() {
+      location.href = `https://map.kakao.com/?sName=${this.startRoute}&eName=${this.endRoute}`;
+    },
+  },
+  filters: {
+    price(value) {
+      if (!value) return value;
+      return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
   },
 };

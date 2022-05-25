@@ -15,7 +15,7 @@
                 <v-list-item-title>EMAIL</v-list-item-title>
 
                 <v-list-item-subtitle>
-                  gpfls0506@gmail.com & mksu234@gmail.com
+                  minseok@gmail.com<br />tjfvmfdydid@gmail.com
                 </v-list-item-subtitle>
               </v-list-item>
 

@@ -15,4 +15,13 @@ function apartList(params, success, fail) {
   apart.get(``, { params: params }).then(success).catch(fail);
 }
 
-export { sidoList, gugunList, apartList };
+function apartListByName(params, success, fail) {
+  console.log(params);
+  api.get(`/map/search`, { params: params }).then(success).catch(fail);
+}
+
+function apartListByCode(aptCode, success, fail) {
+  api.get(`/map/info/${aptCode}`).then(success).catch(fail);
+}
+
+export { sidoList, gugunList, apartList, apartListByName, apartListByCode };

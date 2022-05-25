@@ -1,34 +1,27 @@
 <template>
   <v-card v-if="nameApt">
     <v-card-title class="subheading font-weight-bold">
-      {{ nameApt.apartmentName }}아파트
+      {{ nameApt.apartmentname }} 아파트
     </v-card-title>
     <v-list dense>
       <v-list-item>
-        <v-list-item-content>일련번호:</v-list-item-content>
-        <v-list-item-content class="align-end">
-          {{ nameApt.aptCode }}
-        </v-list-item-content>
-      </v-list-item>
-
-      <v-list-item>
         <v-list-item-content>법정동:</v-list-item-content>
         <v-list-item-content class="align-end">
-          {{ apart.법정동 }}
+          {{ nameApt.dong }}
         </v-list-item-content>
       </v-list-item>
 
       <v-list-item>
         <v-list-item-content>층 수:</v-list-item-content>
         <v-list-item-content class="align-end">
-          {{ apart.층 }}층
+          {{ nameApt.floor }}층
         </v-list-item-content>
       </v-list-item>
 
       <v-list-item>
         <v-list-item-content>거래금액:</v-list-item-content>
         <v-list-item-content class="align-end">
-          {{ apart.거래금액 }}원
+          {{ nameApt.dealamount }}만 원
         </v-list-item-content>
       </v-list-item>
     </v-list>

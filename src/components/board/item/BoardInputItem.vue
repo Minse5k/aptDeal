@@ -53,6 +53,7 @@ export default {
         userid: "",
         subject: "",
         content: "",
+        like: 0,
       },
     };
   },

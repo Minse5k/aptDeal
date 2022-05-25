@@ -33,6 +33,12 @@
             </v-list-item-content>
           </v-list-item>
           <v-list-item>
+            <v-list-item-content>추천수 :</v-list-item-content>
+            <v-list-item-content class="align-end">
+              {{ article.like }}
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
             <v-list-item-content>작성일 :</v-list-item-content>
             <v-list-item-content class="align-end">
               {{ article.regtime }}
@@ -85,6 +91,7 @@ export default {
         console.log("삭제시 에러발생!!", error);
       }
     );
+    console.log(this.article.like);
   },
   methods: {
     listArticle() {
@@ -94,23 +101,17 @@ export default {
       getLike(
         this.article,
         ({ data }) => {
-          let msg = "등록 처리시 문제가 발생했습니다.";
+          let msg = "이미 추천한 게시글입니다.";
           if (data === "success") {
-            msg = "등록이 완료되었습니다.";
+            msg = "추천이 완료됐습니다.";
           }
           alert(msg);
-          this.moveList();
+          console.log(this.article);
         },
         (error) => {
           console.log(error);
         }
       );
-      alert("추천!!!");
-      // this.$router.replace({
-      //   name: "negoModify",
-      //   params: { articleno: this.article.articleno },
-      // });
-      //   this.$router.push({ path: `/board/modify/${this.article.articleno}` });
     },
     deleteArticle() {
       if (confirm("정말로 삭제?")) {

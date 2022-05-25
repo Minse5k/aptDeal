@@ -46,7 +46,7 @@
             ></v-text-field>
           </v-col>
           <v-col class="text-right">
-            <v-btn @click="searchApt" color="primary">조회</v-btn>
+            <v-btn @click="searchApt2" color="primary">조회</v-btn>
           </v-col>
         </v-row>
       </v-tab-item>
@@ -139,37 +139,33 @@ export default {
     },
     searchApt() {
       this.CLEAR_APART_LIST();
-      if (this.row === "locations") {
-        eventBus.$emit("getMap", param);
-        console.log(this.gugunCode);
-        if (!this.sidoCode || !this.gugunCode)
-          alert("조회할 지역을 선택해주세요.");
-        else if (!this.year || !this.month)
-          alert("조회할 년-월을 선택해주세요.");
-        let date = this.year + this.month;
-        console.log(date);
-        console.log(this.datanum);
-        const param = {
-          page: 1,
-          date: date,
-          rows: this.datanum,
-          gugunCode: this.gugunCode,
-        };
-        if (this.gugunCode) this.getApartList(param);
-      } else {
-        // eventBus.$emit("getMap", param);
-        console.log(this.sidoName);
-        if (!this.sidoName) alert("조회할 지역을 선택해주세요.");
-        console.log(this.aptName);
-        if (!this.aptName) {
-          alert("조회할 아파트를 입력해주세요.");
-        }
-        const param = {
-          apartName: this.aptName,
-          sido: this.sidoName,
-        };
-        if (this.aptName) this.getApartListByName(param);
+      eventBus.$emit("getMap", param);
+      console.log(this.gugunCode);
+      if (!this.sidoCode || !this.gugunCode)
+        alert("조회할 지역을 선택해주세요.");
+      else if (!this.year || !this.month) alert("조회할 년-월을 선택해주세요.");
+      let date = this.year + this.month;
+      console.log(date);
+      console.log(this.datanum);
+      const param = {
+        page: 1,
+        date: date,
+        rows: this.datanum,
+        gugunCode: this.gugunCode,
+      };
+      if (this.gugunCode) this.getApartList(param);
+    },
+    searchApt2() {
+      if (!this.sidoName) alert("조회할 지역을 선택해주세요.");
+      console.log(this.aptName);
+      if (!this.aptName) {
+        alert("조회할 아파트를 입력해주세요.");
       }
+      const param = {
+        apartName: this.aptName,
+        sido: this.sidoName,
+      };
+      if (this.aptName) this.getApartListByName(param);
     },
   },
 };

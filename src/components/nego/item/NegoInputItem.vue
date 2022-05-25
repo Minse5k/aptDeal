@@ -53,6 +53,7 @@ export default {
         userid: "",
         subject: "",
         content: "",
+        like: 0,
         love: 0,
       },
     };
@@ -68,6 +69,7 @@ export default {
       getArticle(
         this.$route.params.articleno,
         ({ data }) => {
+          console.log(data);
           this.article = data;
         },
         (error) => {
@@ -109,7 +111,7 @@ export default {
       this.article.articleno = 0;
       this.article.subject = "";
       this.article.content = "";
-      this.article.love = 0;
+      this.article.like = 0;
       this.$router.push({ name: "negoList" });
     },
     registArticle() {
